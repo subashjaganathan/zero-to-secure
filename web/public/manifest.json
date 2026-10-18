@@ -1,22 +1,22 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-  "name": "Cyber Hygiene · Practical Digital Security",
-  "short_name": "Cyber Hygiene",
-  "start_url": "/personal-cyber-hygiene-checklist/",
-  "scope": "/personal-cyber-hygiene-checklist/",
+  "name": "Zero to Secure · Practical Digital Security",
+  "short_name": "Zero to Secure",
+  "start_url": "/zero-to-secure/",
+  "scope": "/zero-to-secure/",
   "display": "standalone",
   "theme_color": "#8b5cf6",
   "background_color": "#0f172a",
   "description": "Practical digital security, one step at a time. A free, open checklist covering authentication, browsing, devices, networks, AI and more.",
   "icons": [
     {
-      "src": "/personal-cyber-hygiene-checklist/favicon.png",
+      "src": "/zero-to-secure/favicon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/personal-cyber-hygiene-checklist/favicon.png",
+      "src": "/zero-to-secure/favicon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

@@ -16,7 +16,7 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "Cyber Hygiene · Practical Digital Security",
+  title: "Zero to Secure · Practical Digital Security",
   meta: [
     {
       name: "description",

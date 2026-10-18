@@ -8,8 +8,8 @@ import { writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const BASE = '/personal-cyber-hygiene-checklist/';
-const distDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist', 'personal-cyber-hygiene-checklist');
+const BASE = '/zero-to-secure/';
+const distDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist', 'zero-to-secure');
 
 const html = `<!DOCTYPE html>
 <html lang="en-us">
@@ -17,7 +17,7 @@ const html = `<!DOCTYPE html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Status" content="404">
-  <title>Page not found · Cyber Hygiene</title>
+  <title>Page not found · Zero to Secure</title>
   <link rel="icon" type="image/png" href="${BASE}favicon.png">
   <style>
     :root { color-scheme: dark light; }

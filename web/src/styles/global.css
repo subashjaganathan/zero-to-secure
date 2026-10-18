@@ -4,7 +4,7 @@
  * on page load is not a good look, and the woff2 files were already shipped.
  *
  * The @font-face rules live in components/router-head, because their URLs have
- * to be run through withBase() for the /personal-cyber-hygiene-checklist/ sub-path.
+ * to be run through withBase() for the /zero-to-secure/ sub-path.
  *
  * Headings previously used Catamaran 900, which is not self-hosted; Poppins 700
  * stands in for it. Drop a catamaran-900.woff2 into /public/fonts and add a

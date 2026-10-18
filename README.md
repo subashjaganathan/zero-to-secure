@@ -1,10 +1,10 @@
 <div align="center">
   <img src="web/public/logo.svg" width="72" alt="">
-  <h1>Cyber Hygiene</h1>
+  <h1>Zero to Secure</h1>
   <p><strong>Practical digital security, one step at a time.</strong></p>
 </div>
 
-🔗 **https://subashjaganathan.github.io/personal-cyber-hygiene-checklist/**
+🔗 **https://subashjaganathan.github.io/zero-to-secure/**
 
 A checklist of 278 specific, plain-English things you can do to make your digital life harder to attack. You work through it at your own pace, ticking items off as you go.
 

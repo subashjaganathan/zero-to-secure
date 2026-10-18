@@ -8,7 +8,7 @@ interface LogoProps {
 }
 
 /**
- * The Cyber Hygiene mark: a hex shield with a heartbeat line running through
+ * The Zero to Secure mark: a hex shield with a heartbeat line running through
  * it: the shield reads as security, the pulse as something you check on
  * regularly rather than set once and forget.
  *
@@ -27,7 +27,7 @@ export default component$((props: LogoProps) => {
       viewBox="0 0 48 48"
       fill="none"
       role="img"
-      aria-label="Cyber Hygiene"
+      aria-label="Zero to Secure"
     >
       <defs>
         <linearGradient id={`logo-body-${uid}`} x1="6" y1="2" x2="42" y2="46" gradientUnits="userSpaceOnUse">

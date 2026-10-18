@@ -57,7 +57,7 @@ export default component$(() => {
           </div>
 
           <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.05]">
-            <span class={styles.title}>Cyber Hygiene</span>
+            <span class={styles.title}>Zero to Secure</span>
           </h1>
 
           <p class="mt-5 text-lg sm:text-xl max-w-2xl opacity-80">

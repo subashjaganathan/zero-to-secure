@@ -31,7 +31,7 @@ export default component$(() => {
         </div>
         <div class="min-w-0">
           <p class={styles.eyebrow}>
-            {section?.checklist.length} checks · Cyber Hygiene
+            {section?.checklist.length} checks · Zero to Secure
           </p>
           <h1 class={['text-4xl sm:text-5xl font-extrabold capitalize', styles.mastheadTitle]}>
             {section?.title}
@@ -73,13 +73,13 @@ export const head: DocumentHead = ({ resolveValue, params }) => {
   const sections = resolveValue(useChecklists);
   const section = sections.find((item: Section) => item.slug === params.title);
   return {
-    title: `${section?.title || 'Checklist'} · Cyber Hygiene`,
+    title: `${section?.title || 'Checklist'} · Zero to Secure`,
     meta: [
       {
         name: 'description',
         content: section?.description || 'A digital security and privacy checklist.',
       },
-      { property: 'og:title', content: `${section?.title || 'Checklist'} · Cyber Hygiene` },
+      { property: 'og:title', content: `${section?.title || 'Checklist'} · Zero to Secure` },
       { property: 'og:description', content: section?.description || '' },
     ],
   };

@@ -2,7 +2,7 @@ import { component$ } from "@builder.io/qwik";
 
 export default component$(() => {
 
-  const ghLink = 'https://github.com/subashjaganathan/personal-cyber-hygiene-checklist';
+  const ghLink = 'https://github.com/subashjaganathan/zero-to-secure';
   const authorLink = 'https://subashjaganathan.github.io';
 
   return (

@@ -48,7 +48,7 @@ export default component$(() => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `cyber-hygiene-progress-${new Date().toISOString().slice(0, 10)}.json`;
+    link.download = `zero-to-secure-progress-${new Date().toISOString().slice(0, 10)}.json`;
     link.click();
     URL.revokeObjectURL(url);
   });
@@ -63,13 +63,13 @@ export default component$(() => {
         const payload = JSON.parse(text);
         const restored = STORAGE_KEYS.filter((key) => key in payload);
         if (!restored.length) {
-          alert('That file does not contain any Cyber Hygiene progress.');
+          alert('That file does not contain any Zero to Secure progress.');
           return;
         }
         restored.forEach((key) => localStorage.setItem(key, JSON.stringify(payload[key])));
         location.reload();
       } catch {
-        alert('Could not read that file. Is it a Cyber Hygiene export?');
+        alert('Could not read that file. Is it a Zero to Secure export?');
       }
     });
   });
@@ -84,9 +84,9 @@ export default component$(() => {
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </label>
           </div> 
-          <a href={withBase("/")} class="btn btn-ghost text-xl flex capitalize">
+          <a href={withBase("/")} class="btn btn-ghost text-xl flex normal-case">
             <label for="my-drawer-3" aria-label="open sidebar" class="tooltip tooltip-bottom mr-2" data-tip="View all Pages"><Logo size={30} id="nav" /></label>
-            <h1 class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent font-extrabold whitespace-nowrap">Cyber Hygiene</h1>
+            <h1 class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent font-extrabold whitespace-nowrap">Zero to Secure</h1>
           </a>
         </div>
         <div class="flex-none hidden md:flex">
@@ -110,7 +110,7 @@ export default component$(() => {
               </details>
             </li>
             <li>
-              <a href="https://github.com/subashjaganathan/personal-cyber-hygiene-checklist"
+              <a href="https://github.com/subashjaganathan/zero-to-secure"
                 class="tooltip flex tooltip-bottom" data-tip="View / Edit Source & Data">
                 <Icon icon="github" width={16} height={16}  />GitHub
               </a>
@@ -145,10 +145,10 @@ export default component$(() => {
         <ul class="rounded-box menu p-4 w-80 min-h-full bg-base-200">
           <h2 class="flex items-center gap-2 text-base-content font-bold">
             <Logo size={22} id="drawer" />
-            Cyber Hygiene
+            Zero to Secure
           </h2>
           <li><a href={withBase("/")}><Icon class="mr-2" icon="homepage" width={16} height={16}  />Home</a></li>
-          <li><a href="https://github.com/subashjaganathan/personal-cyber-hygiene-checklist">
+          <li><a href="https://github.com/subashjaganathan/zero-to-secure">
             <Icon class="mr-2" icon="github" width={16} height={16}  />GitHub</a>
           </li>
           <li>
@@ -177,12 +177,12 @@ export default component$(() => {
             </button>
           </li>
           <li>
-            <a href="https://github.com/subashjaganathan/personal-cyber-hygiene-checklist/blob/main/CONTRIBUTING.md">
+            <a href="https://github.com/subashjaganathan/zero-to-secure/blob/main/CONTRIBUTING.md">
               <Icon class="mr-2" icon="about" width={16} height={16} />Contributing
             </a>
           </li>
           <li>
-            <a href="https://github.com/subashjaganathan/personal-cyber-hygiene-checklist/blob/main/LICENSE">
+            <a href="https://github.com/subashjaganathan/zero-to-secure/blob/main/LICENSE">
               <Icon class="mr-2" icon="articles" width={16} height={16} />License
             </a>
           </li>

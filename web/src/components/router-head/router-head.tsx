@@ -20,7 +20,7 @@ export const RouterHead = component$(() => {
       `} />
 
       {/* Basics */}
-      <title>{head.title || 'Cyber Hygiene · Practical Digital Security'}</title>
+      <title>{head.title || 'Zero to Secure · Practical Digital Security'}</title>
       <meta name="description" content="Practical digital security, one step at a time. A free, open checklist covering authentication, browsing, devices, networks, AI and more." />
 
       {/* Site config */}
@@ -36,14 +36,14 @@ export const RouterHead = component$(() => {
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
       <meta property="og:url" content={loc.url.href} />
-      <meta property="og:title" content="Cyber Hygiene · Practical Digital Security" />
+      <meta property="og:title" content="Zero to Secure · Practical Digital Security" />
       <meta property="og:description" content="Practical digital security, one step at a time. A free, open checklist covering authentication, browsing, devices, networks, AI and more." />
       <meta property="og:image" content={withBase("/banner.png")} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={loc.url.href} />
-      <meta property="twitter:title" content="Cyber Hygiene · Practical Digital Security" />
+      <meta property="twitter:title" content="Zero to Secure · Practical Digital Security" />
       <meta name="twitter:description" content="Practical digital security, one step at a time. A free, open checklist covering authentication, browsing, devices, networks, AI and more." />
       <meta name="twitter:image" content={withBase("/banner.png")} />
 

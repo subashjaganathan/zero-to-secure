@@ -1,5 +1,5 @@
 /**
- * Generates the Cyber Hygiene favicon and social banner as PNGs from inline SVG,
+ * Generates the Zero to Secure favicon and social banner as PNGs from inline SVG,
  * so the build carries no branding from the original project.
  * Run: node scripts/generate-brand.mjs
  */
@@ -41,7 +41,7 @@ const bannerSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
   <g transform="translate(210,315)">${shield(300).replace(`translate(${300 / 2}, ${300 / 2})`, 'translate(0,0)')}</g>
-  <text x="420" y="285" font-family="Segoe UI, Arial, sans-serif" font-size="92" font-weight="800" fill="url(#txt)">Cyber Hygiene</text>
+  <text x="420" y="285" font-family="Segoe UI, Arial, sans-serif" font-size="92" font-weight="800" fill="url(#txt)">Zero to Secure</text>
   <text x="424" y="350" font-family="Segoe UI, Arial, sans-serif" font-size="38" font-weight="500" fill="#cbd5e1">Personal Security &amp; Privacy Checklist</text>
 </svg>`;
 

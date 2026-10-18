@@ -3,7 +3,7 @@
  * when the site is served from a sub-path (e.g. a GitHub Pages project site).
  *
  * `import.meta.env.BASE_URL` is provided by Vite and equals the `base` config
- * value ("/personal-cyber-hygiene-checklist/" in production, "/" in dev).
+ * value ("/zero-to-secure/" in production, "/" in dev).
  */
 export const withBase = (path: string): string => {
   const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');

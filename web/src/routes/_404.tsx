@@ -33,5 +33,5 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: 'Page not found · Cyber Hygiene',
+  title: 'Page not found · Zero to Secure',
 };
