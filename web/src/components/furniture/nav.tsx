@@ -14,12 +14,7 @@ export default component$(() => {
 
   const { theme, setTheme } = useTheme();
 
-  const themes = [
-    'dark', 'light', 'night', 'cupcake', 
-    'bumblebee', 'corporate', 'synthwave', 'retro', 
-    'valentine', 'halloween', 'aqua', 'lofi', 
-    'fantasy', 'dracula'
-  ];
+  const themes = ['light', 'dark'];
 
   /*
    * Every key this app owns. Deleting these individually rather than calling
@@ -77,31 +72,31 @@ export default component$(() => {
   return (
     <>
       <input id="my-drawer-3" type="checkbox" class="drawer-toggle" /> 
-      <div class="navbar bg-base-100">
+      <div class="navbar bg-base-100 border-b border-base-300 px-2 sm:px-4 min-h-14">
         <div class="flex-1">
           <div class="flex-none md:hidden">
             <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </label>
           </div> 
-          <a href={withBase("/")} class="btn btn-ghost text-xl flex normal-case">
-            <label for="my-drawer-3" aria-label="open sidebar" class="tooltip tooltip-bottom mr-2" data-tip="View all Pages"><Logo size={30} id="nav" /></label>
-            <h1 class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent font-extrabold whitespace-nowrap">Zero to Secure</h1>
+          <a href={withBase("/")} class="flex items-center gap-2 px-2 py-1 rounded-md">
+            <Logo size={24} id="nav" />
+            <span class="text-base font-semibold tracking-tight whitespace-nowrap">Zero to Secure</span>
           </a>
         </div>
-        <div class="flex-none hidden md:flex">
-          <ul class="menu menu-horizontal px-1">
+        <div class="flex-none hidden md:flex items-center gap-1">
+          <ul class="menu menu-horizontal px-1 text-sm">
             <li>
               <details>
                 <summary>
                   <Icon icon="checklist" width={16} height={16}  />
                   Checklists
                 </summary>
-                <ul class="p-2 bg-base-100 rounded-t-none z-10">
+                <ul class="p-2 bg-base-100 border border-base-300 rounded-lg z-10 w-64 right-0">
                   {data.value.map((item: Section, index: number) => (
-                    <li key={`checklist-nav-${index}`} class={`hover:bg-${item.color}-600 hover:bg-opacity-15`}>
+                    <li key={`checklist-nav-${index}`}>
                       <a href={withBase(`/checklist/${item.slug}`)}>
-                      <Icon color={item.color} class="mr-2" icon={item.icon} width={16} height={16}  />
+                      <Icon class="mr-2 opacity-70" icon={item.icon} width={16} height={16}  />
                         {item.title}
                       </a>
                     </li>
@@ -110,39 +105,39 @@ export default component$(() => {
               </details>
             </li>
             <li>
-              <a href="https://github.com/subashjaganathan/zero-to-secure"
-                class="tooltip flex tooltip-bottom" data-tip="View / Edit Source & Data">
+              <a href="https://github.com/subashjaganathan/zero-to-secure" class="flex">
                 <Icon icon="github" width={16} height={16}  />GitHub
               </a>
             </li>
           </ul>
-          <div class="tooltip tooltip-bottom" data-tip="Theme">
-            <label class="cursor-pointer grid place-items-center">
-              <input
-                type="checkbox"
-                checked={theme.theme === 'dark'}
-                onClick$={() => {
-                  setTheme(theme.theme === 'dark' ? 'light' : 'dark');
-                }}
-                class="toggle theme-controller bg-base-content row-start-1 col-start-1 col-span-2"
-              />
-              <svg class="col-start-1 row-start-1 stroke-base-100 fill-base-100" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
-              <svg class="col-start-2 row-start-1 stroke-base-100 fill-base-100" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            </label>
-          </div>
-          <li class="list-none px-2">
-            <p
-              onClick$={() => ((document.getElementById('settings_modal') || {}) as HTMLDialogElement).showModal()}
-              class="cursor-pointer tooltip flex tooltip-bottom" data-tip="Settings">
-                <Icon icon="settings" width={20} height={20}  />
-            </p>
-          </li>
+          <button
+            type="button"
+            class="btn btn-ghost btn-sm btn-square font-normal"
+            aria-label={theme.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+            title="Theme"
+            onClick$={() => setTheme(theme.theme === 'dark' ? 'light' : 'dark')}
+          >
+            {theme.theme === 'dark' ? (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            ) : (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            )}
+          </button>
+          <button
+            type="button"
+            class="btn btn-ghost btn-sm btn-square font-normal"
+            aria-label="Settings"
+            title="Settings"
+            onClick$={() => ((document.getElementById('settings_modal') || {}) as HTMLDialogElement).showModal()}
+          >
+            <Icon icon="settings" width={18} height={18} />
+          </button>
         </div>
       </div>
 
       <div class="drawer-side z-10">
         <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label> 
-        <ul class="rounded-box menu p-4 w-80 min-h-full bg-base-200">
+        <ul class="menu p-4 w-80 min-h-full bg-base-100 border-r border-base-300">
           <h2 class="flex items-center gap-2 text-base-content font-bold">
             <Logo size={22} id="drawer" />
             Zero to Secure
@@ -155,9 +150,9 @@ export default component$(() => {
             <a href={withBase("/checklist")}><Icon class="mr-2" icon="all" width={16} height={16} />Checklists</a>
             <ul>
               {data.value.map((item: Section, index: number) => (
-              <li key={`checklist-side-${index}`} class={`hover:bg-${item.color}-600 hover:bg-opacity-15`}>
+              <li key={`checklist-side-${index}`}>
                 <a href={withBase(`/checklist/${item.slug}`)}>
-                <Icon color={item.color} class="mr-2" icon={item.icon} width={16} height={16}  />
+                <Icon class="mr-2 opacity-70" icon={item.icon} width={16} height={16}  />
                   {item.title}
                 </a>
               </li>

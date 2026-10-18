@@ -7,7 +7,7 @@ import { withBase } from '~/utils/base';
 export default component$(() => {
   return (
     <div class="flex flex-col items-center justify-center text-center px-6 py-24">
-      <p class="text-7xl font-extrabold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+      <p class="text-6xl font-bold tracking-tight text-base-content/30 tabular-nums">
         404
       </p>
       <h1 class="text-2xl font-bold mt-2">Page not found</h1>
@@ -22,7 +22,7 @@ export default component$(() => {
           </button>
         </a>
         <a href={withBase('/checklist')}>
-          <button class="btn btn-outline">
+          <button class="btn btn-outline border-base-300">
             <Icon icon="all" width={18} height={18} />
             Browse all checklists
           </button>

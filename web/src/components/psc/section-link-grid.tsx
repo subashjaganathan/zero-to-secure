@@ -18,89 +18,56 @@ export default component$(() => {
    */
   const checklists = useContext(ChecklistContext);
 
-  // Create signals to store the number of items done or ignored per section
-  const completions =  useSignal<number[]>();
-  const done =  useSignal<number[]>();
+  // Percentage complete and number of items done, per section
+  const completions = useSignal<number[]>();
+  const done = useSignal<number[]>();
 
-  // Get the IDs of completed and ignore items from local storage
   const [checked] = useLocalStorage('PSC_PROGRESS', {});
   const [ignored] = useLocalStorage('PSC_IGNORED', {});
 
-  /**
-   * Get the percentage of completion for a given section
-   * using completion data from local storage, and disregarding ignored items
-   */
-  const getPercentCompletion = $((section: Section): number => {
-    const id = (item: Checklist) => generatePointId(section.slug, item.point);
-    const total = section.checklist.filter((item) => !ignored.value[id(item)]).length;
-    const done = section.checklist.filter((item) => checked.value[id(item)]).length;
-    return total > 0 ? Math.round((done / total) * 100) : 0;
-  });
-
-  // On load (in browser only), calculate and set completion data for sections
-  useOnWindow('load', $(async () => {
-    // Percentage completion, per section
-    completions.value = await Promise.all(checklists.value.map((section: Section) =>
-      getPercentCompletion(section),
-    ));
-    // Count of completed items, per section
+  // On load (in browser only), work out completion for each section,
+  // disregarding ignored items
+  useOnWindow('load', $(() => {
+    const id = (section: Section, item: Checklist) => generatePointId(section.slug, item.point);
+    completions.value = checklists.value.map((section: Section) => {
+      const total = section.checklist.filter((item) => !ignored.value[id(section, item)]).length;
+      const count = section.checklist.filter((item) => checked.value[id(section, item)]).length;
+      return total > 0 ? Math.round((count / total) * 100) : 0;
+    });
     done.value = checklists.value.map((section: Section) =>
-      section.checklist.filter(
-        (item) => checked.value[generatePointId(section.slug, item.point)],
-      ).length
+      section.checklist.filter((item) => checked.value[id(section, item)]).length
     );
   }));
 
   return (
-    <div class={[styles.container, 'grid',
-      'mx-auto mt-8 px-4 gap-6', 'xl:px-10 xl:max-w-7xl',
-      'max-w-6xl w-full']}>
-      {checklists.value.map((section: Section, index: number) => {
-        const percent = completions.value?.[index];
-        const doneCount = done.value?.[index];
-        return (
-        <a key={section.slug}
-          href={withBase(`/checklist/${section.slug}`)}
-          class={[styles.card, `border-${section.color}-400`]}
-        >
-          {/* Colour wash keyed to the section, so each area reads distinctly */}
-          <span class={[styles.cardGlow, `bg-${section.color}-400`]} aria-hidden="true"></span>
-
-          <div class={[styles.iconChip, `bg-${section.color}-400`]}>
-            <Icon icon={section.icon || 'star'} color={section.color} width={26} height={26} />
-          </div>
-
-          <div class="flex-grow min-w-0">
-            <h2 class={styles.cardTitle}>{section.title}</h2>
-            <p class={styles.cardDescription}>{section.description}</p>
-
-            <div class="flex items-center gap-2 mt-3">
-              <span class={[styles.pill, `border-${section.color}-400`]}>
-                {section.checklist.length} checks
+    <section class="mx-auto max-w-6xl w-full px-4 sm:px-6 mt-12">
+      <div class="flex items-baseline justify-between mb-4">
+        <h2 class={styles.panelTitle}>Areas</h2>
+        <a href={withBase('/checklist')} class="text-sm text-base-content/60 hover:text-primary">View all checks →</a>
+      </div>
+      <div class={[styles.container, 'grid gap-4']}>
+        {checklists.value.map((section: Section, index: number) => {
+          const percent = completions.value?.[index] || 0;
+          const doneCount = done.value?.[index] || 0;
+          return (
+          <a key={section.slug} href={withBase(`/checklist/${section.slug}`)} class={styles.card}>
+            <div class={styles.cardTop}>
+              <span class={styles.iconChip}>
+                <Icon icon={section.icon || 'star'} width={18} height={18} />
               </span>
-              {doneCount ? (
-                <span class="text-xs opacity-70">{doneCount} done</span>
-              ) : (
-                <span class="text-xs opacity-40">Not yet started</span>
-              )}
+              <span class={styles.cardCount}>
+                {doneCount ? `${doneCount} / ${section.checklist.length}` : `${section.checklist.length} checks`}
+              </span>
             </div>
-
-            {/* Completion bar, only once there is progress to show */}
-            {percent ? (
-              <div class={styles.track}>
-                <span
-                  class={[styles.trackFill, `bg-${section.color}-400`]}
-                  style={`width: ${percent}%;`}></span>
-              </div>
-            ) : null}
-          </div>
-
-          {percent ? (
-            <span class={styles.percent}>{percent}%</span>
-          ) : null}
-        </a>
-        );
-      })}
-    </div>
+            <h3 class={styles.cardTitle}>{section.title}</h3>
+            <p class={styles.cardDescription}>{section.description}</p>
+            <div class={[styles.track, 'mt-auto']} aria-label={`${percent}% complete`}>
+              <span class={[styles.trackFill, 'bg-primary']} style={`width: ${percent}%;`}></span>
+            </div>
+          </a>
+          );
+        })}
+      </div>
+    </section>
   );
 });

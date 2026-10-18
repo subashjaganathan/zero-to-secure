@@ -8,6 +8,7 @@ import type { Section } from "~/types/PSC";
 import Table from '~/components/psc/checklist-table';
 import styles from './section.module.css';
 import { useChecklists } from '~/routes/layout';
+import { withBase } from '~/utils/base';
 
 export default component$(() => {
 
@@ -20,47 +21,45 @@ export default component$(() => {
     .find((item: Section) => item.slug === slug);
 
   return (
-    <div class="md:my-8 md:px-16 sm:px-2 rounded-md">
-    <article class="bg-back p-8 mx-auto w-full max-w-[1200px] rounded-lg shadow-md">
-      {/* Coloured masthead, tinted with the section's own accent so each area
-          is visually distinct as you move between them */}
-      <header class={[styles.masthead, `bg-${section?.color}-400`]}>
-        <span class={[styles.mastheadWash, `bg-${section?.color}-400`]} aria-hidden="true"></span>
-        <div class={[styles.mastheadIcon, `text-${section?.color}-400`]}>
-          <Icon height={30} width={30} icon={section?.icon || 'star'} />
+    <article class={styles.page}>
+      <nav class={styles.crumbs} aria-label="Breadcrumb">
+        <a href={withBase('/')}>Home</a>
+        <span class="mx-2" aria-hidden="true">/</span>
+        <a href={withBase('/checklist')}>Checklists</a>
+        <span class="mx-2" aria-hidden="true">/</span>
+        <span class="text-base-content">{section?.title}</span>
+      </nav>
+
+      <header class={styles.masthead}>
+        <div class={styles.mastheadIcon}>
+          <Icon height={22} width={22} icon={section?.icon || 'star'} />
         </div>
         <div class="min-w-0">
-          <p class={styles.eyebrow}>
-            {section?.checklist.length} checks · Zero to Secure
-          </p>
-          <h1 class={['text-4xl sm:text-5xl font-extrabold capitalize', styles.mastheadTitle]}>
-            {section?.title}
-          </h1>
+          <h1 class={styles.mastheadTitle}>{section?.title}</h1>
+          <p class={styles.eyebrow}>{section?.checklist.length} checks</p>
         </div>
       </header>
 
-      <p class="py-4 text-lg opacity-80" dangerouslySetInnerHTML={parseMarkdown(section?.intro)}></p>
+      <div class={styles.intro} dangerouslySetInnerHTML={parseMarkdown(section?.intro)}></div>
 
-      <div class="overflow-x-auto">
-        {section && (<Table section={section} />)}
-      </div>
+      {section && (<Table section={section} />)}
 
       {section && section.softwareLinks && (
-        <>
-        <div class="divider my-4">Useful Links</div>
-        <h3 class="text-xl my-2">Recommended Software</h3>
-          <ul class="list-disc pl-4">
+        <section class="mt-12 pt-8 border-t border-base-300">
+          <h2 class="text-lg mb-3">Recommended software</h2>
+          <ul class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {section.softwareLinks.map((link, index) => (
             <li key={index}>
-              <a class="link link-primary" href={link.url} title={link.description}>{link.title}</a>
+              <a class="block rounded-lg border border-base-300 px-4 py-3 hover:bg-base-200 transition-colors" href={link.url}>
+                <span class="font-medium">{link.title}</span>
+                {link.description && (<span class="block text-sm text-base-content/60 mt-0.5">{link.description}</span>)}
+              </a>
             </li>
           ))}
           </ul>
-        </>
+        </section>
       )}
-
     </article>
-    </div>
   );
 });
 

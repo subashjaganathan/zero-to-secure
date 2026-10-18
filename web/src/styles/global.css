@@ -1,20 +1,26 @@
 /*
  * Fonts are self-hosted from /public/fonts rather than fetched from Google.
  * A privacy checklist that leaks every visitor's IP to a third-party font CDN
- * on page load is not a good look, and the woff2 files were already shipped.
+ * on page load is not a good look.
  *
- * The @font-face rules live in components/router-head, because their URLs have
+ * The @font-face rule lives in components/router-head, because its URL has
  * to be run through withBase() for the /zero-to-secure/ sub-path.
- *
- * Headings previously used Catamaran 900, which is not self-hosted; Poppins 700
- * stands in for it. Drop a catamaran-900.woff2 into /public/fonts and add a
- * matching @font-face to bring it back.
  */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
-  font-weight: 700;
+/* The font stack itself is set as Tailwind's `sans` family in tailwind.config.js */
+html {
+  -webkit-font-smoothing: antialiased;
 }
 
-p, a, li, span {
-  font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+:focus-visible {
+  outline: 2px solid hsl(var(--p));
+  outline-offset: 2px;
+}
+
+::selection {
+  background: hsl(var(--p) / 0.2);
 }

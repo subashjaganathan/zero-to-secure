@@ -20,7 +20,8 @@ export const useTheme = () => {
   const state = useStore({ theme: theme.value });
 
   useOnWindow('load', $(() => {
-    const storedTheme = theme.value || getDefaultTheme();
+    // Only light and dark exist now; older saved themes fall back to the OS preference
+    const storedTheme = theme.value === 'light' || theme.value === 'dark' ? theme.value : getDefaultTheme();
     state.theme = storedTheme;
     applyTheme(storedTheme);
   }));

@@ -32,7 +32,7 @@ export default component$(() => {
           store only runs on window load, so every page flashed the hardcoded
           dark theme first. Falls back to the OS preference for new visitors.
         */}
-        <script dangerouslySetInnerHTML={`(function(){try{var t=JSON.parse(localStorage.getItem('PSC_THEME'));if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);document.addEventListener('DOMContentLoaded',function(){document.body.setAttribute('data-theme',t);});}catch(e){}})();`} />
+        <script dangerouslySetInnerHTML={`(function(){try{var t=JSON.parse(localStorage.getItem('PSC_THEME'));if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);document.addEventListener('DOMContentLoaded',function(){document.body.setAttribute('data-theme',t);});}catch(e){}})();`} />
         <ServiceWorkerRegister />
       </head>
       <body class="flex flex-col justify-between min-h-screen">

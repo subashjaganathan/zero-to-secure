@@ -6,15 +6,18 @@ export default component$(() => {
   const authorLink = 'https://subashjaganathan.github.io';
 
   return (
-  <footer class="footer footer-center px-4 py-3 mt-4 text-base-content bg-base-200 bg-opacity-25">
-    <aside>
+  <footer class="mt-16 border-t border-base-300">
+    <div class="mx-auto max-w-6xl px-6 py-6 flex flex-wrap gap-x-6 gap-y-2 justify-between text-sm text-base-content/60">
       <p>
         Built &amp; maintained by{' '}
-        <a href={authorLink} class="link link-primary font-semibold">Subash Jaganathan</a>
-        <span class="opacity-70"> · DFIR Expert</span> ·
-        View source on <a href={ghLink} class="link link-primary">GitHub</a>
+        <a href={authorLink} class="text-base-content hover:text-primary">Subash Jaganathan</a>
       </p>
-    </aside>
+      <p>
+        <a href={ghLink} class="hover:text-primary">Source on GitHub</a>
+        <span class="mx-2" aria-hidden="true">·</span>
+        MIT licence
+      </p>
+    </div>
   </footer>
   );
 });

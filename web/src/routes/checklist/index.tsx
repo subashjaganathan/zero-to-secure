@@ -41,9 +41,11 @@ export default component$(() => {
   );
 
   return (
-    <main class="p-8">
-      <div class="mx-auto w-full max-w-3xl mb-4">
-        <label class="input input-bordered flex items-center gap-2" for="checklist-search">
+    <div class="mx-auto w-full max-w-4xl px-6 pt-10">
+      <h1 class="text-3xl font-bold tracking-tight">All checklists</h1>
+      <p class="text-base-content/60 mt-2 mb-6">Search every check, or open an area to tick items off.</p>
+      <div class="mb-4">
+        <label class="input input-bordered border-base-300 flex items-center gap-2" for="checklist-search">
           <Icon icon="search" width={16} height={16} />
           <input
             id="checklist-search"
@@ -63,22 +65,24 @@ export default component$(() => {
         )}
       </div>
 
-      <div class="join join-vertical w-full">
+      <div class="w-full border-t border-base-300">
         {visibleSections.value.map((section: Section) => (
-          <div key={section.slug} class={['collapse collapse-plus bg-base-200 my-4', `border-double border-2 border-${section.color}-400`]}>
+          <div key={section.slug} class="collapse collapse-arrow rounded-none border-b border-base-300">
             <input type="radio" name="my-accordion-3" aria-label={`Expand ${section.title}`} checked={!!query.value.trim()} />
-            <div class={['collapse-title text-xl font-medium']}>
-              <h3>{section.title}</h3>
+            <div class="collapse-title flex items-center gap-3 pl-1 pr-12">
+              <Icon icon={section.icon || 'star'} width={16} height={16} class="opacity-70" />
+              <h2 class="text-base font-semibold">{section.title}</h2>
+              <span class="text-sm text-base-content/60 ml-auto tabular-nums">{section.checklist.length}</span>
             </div>
-            <div class="collapse-content">
+            <div class="collapse-content px-1">
               {
                 section.checklist.map((item) => {
                   const pointId = generatePointId(section.slug, item.point);
                   return (
-                  <div key={pointId} class="flex justify-between">
-                    <label class="flex items gap-2" for={`check-${pointId}`}>
+                  <div key={pointId} class="py-1.5">
+                    <label class="flex items-start gap-3 cursor-pointer" for={`check-${pointId}`}>
                       <input
-                        class="checkbox checkbox-sm"
+                        class="checkbox checkbox-sm checkbox-primary rounded mt-0.5"
                         id={`check-${pointId}`}
                         type="checkbox"
                         checked={completed.value[pointId] || false}
@@ -88,17 +92,15 @@ export default component$(() => {
                           setCompleted(data);
                         }}
                       />
-                      <span class="tooltip tooltip-bottom" data-tip={item.details}>{item.point}</span>
+                      <span class="text-sm">{item.point}</span>
                     </label>
                   </div>
                 )
               })
               }
-              <div class="card-actions justify-end">
-                <a href={withBase(`/checklist/${section.slug}`)}>
-                  <button class={`btn text-base-100 bg-${section.color}-400 hover:bg-${section.color}-600`}>
-                    View Full Checklist ➜
-                  </button>
+              <div class="pt-3 pb-2">
+                <a href={withBase(`/checklist/${section.slug}`)} class="btn btn-sm btn-primary">
+                  Open {section.title} →
                 </a>
               </div>
             </div>
@@ -109,7 +111,7 @@ export default component$(() => {
       {!visibleSections.value.length && (
         <p class="text-center opacity-70 my-8">No checklist items match “{query.value}”.</p>
       )}
-    </main>
+    </div>
   );
 });
 

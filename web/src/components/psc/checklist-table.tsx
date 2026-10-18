@@ -2,7 +2,7 @@ import { $, component$, useStore, useSignal } from "@builder.io/qwik";
 import { useCSSTransition } from "qwik-transition";
 
 import Icon from "~/components/core/icon";
-import type { Priority, Section, Checklist } from '../../types/PSC';
+import type { Section, Checklist } from '../../types/PSC';
 import { useLocalStorage } from "~/hooks/useLocalStorage";
 import { generatePointId, parseMarkdown } from "~/utils/checklist";
 import styles from './psc.module.css';
@@ -40,19 +40,6 @@ export default component$((props: { section: Section }) => {
     { ...DEFAULT_FILTERS, levels: { ...DEFAULT_FILTERS.levels } },
     { deep: true },
   );
-
-  const getBadgeClass = (priority: Priority, precedeClass: string = '') => {
-    switch (priority.toLocaleLowerCase()) {
-      case 'essential':
-        return `${precedeClass}success`;
-      case 'optional':
-        return `${precedeClass}warning`;
-      case 'advanced':
-        return `${precedeClass}error`;
-      default:
-        return `${precedeClass}neutral`;
-    }
-  };
 
   const generateId = (title: string) => generatePointId(props.section.slug, title);
 
@@ -153,22 +140,25 @@ export default component$((props: { section: Section }) => {
   return (
     <>
 
-    <div class="flex flex-wrap justify-between items-center">
-      <div>
-        <progress class="progress w-64" value={percent} max="100"></progress>
-        <p class="text-xs text-center">
-          {done} out of {total} ({percent}%)
-          complete, {disabled} ignored</p>
+    <div class="flex flex-wrap justify-between items-end gap-4 pb-4">
+      <div class="min-w-[14rem] flex-1 max-w-sm">
+        <p class="text-sm text-base-content/70 mb-2 tabular-nums">
+          <span class="font-semibold text-base-content">{percent}%</span>
+          {' '}· {done} of {total} done{disabled ? `, ${disabled} ignored` : ''}
+        </p>
+        <div class={styles.track}>
+          <span class={[styles.trackFill, 'bg-primary']} style={`width: ${percent}%;`}></span>
+        </div>
       </div>
 
-      <div class="flex flex-wrap gap-2 justify-end my-4">
+      <div class="flex flex-wrap gap-2 justify-end">
         {(sortState.column || JSON.stringify(filterState) !== JSON.stringify(originalFilters)) && (
-          <button class="btn btn-sm hover:btn-primary" onClick$={resetFilters}>
+          <button class="btn btn-sm btn-ghost border border-base-300 font-normal" onClick$={resetFilters}>
             <Icon width={18} height={16} icon="clear"/>
             Reset Filters
           </button>
         )}
-        <button class="btn btn-sm hover:btn-primary" onClick$={() => { showFilters.value = !showFilters.value; }}>
+        <button class="btn btn-sm btn-ghost border border-base-300 font-normal" onClick$={() => { showFilters.value = !showFilters.value; }}>
           <Icon width={18} height={16} icon="filters"/>
           {showFilters.value ? 'Hide' : 'Show'} Filters
         </button>
@@ -176,55 +166,55 @@ export default component$((props: { section: Section }) => {
     </div>
 
     {showFilters.value && (
-      <div class="flex flex-wrap justify-between bg-base-100 rounded px-4 py-1 transition-all"
+      <div class="flex flex-wrap justify-between gap-2 border border-base-300 rounded-lg px-4 py-1 mb-4 transition-all"
         style={{ opacity: stage.value === "enterTo" ? 1 : 0, height: stage.value === "enterTo" ? 'auto' : 0 }}> 
         {/* Filter by completion */}
         <div class="flex justify-end items-center gap-1">
           <p class="font-bold text-sm">Show</p>
           <label onClick$={() => (filterState.show = 'all')}
-            class="p-2 rounded hover:bg-front transition-all cursor-pointer flex gap-2">
+            class="p-2 rounded hover:bg-base-200 transition-all cursor-pointer flex gap-2">
             <span class="text-sm">All</span> 
-            <input type="radio" name="show" class="radio radio-sm checked:radio-info" checked />
+            <input type="radio" name="show" class="radio radio-sm radio-primary" checked />
           </label>
           <label onClick$={() => (filterState.show = 'remaining')}
-            class="p-2 rounded hover:bg-front transition-all cursor-pointer flex gap-2">
+            class="p-2 rounded hover:bg-base-200 transition-all cursor-pointer flex gap-2">
             <span class="text-sm">Remaining</span> 
-            <input type="radio" name="show" class="radio radio-sm checked:radio-error" />
+            <input type="radio" name="show" class="radio radio-sm radio-primary" />
           </label>
           <label onClick$={() => (filterState.show = 'completed')}
-            class="p-2 rounded hover:bg-front transition-all cursor-pointer flex gap-2">
+            class="p-2 rounded hover:bg-base-200 transition-all cursor-pointer flex gap-2">
             <span class="text-sm">Completed</span> 
-            <input type="radio" name="show" class="radio radio-sm checked:radio-success" />
+            <input type="radio" name="show" class="radio radio-sm radio-primary" />
           </label>
         </div>
         {/* Filter by level */}
         <div class="flex justify-end items-center gap-1">
           <p class="font-bold text-sm">Filter</p>
-          <label class="p-2 rounded hover:bg-front transition-all cursor-pointer flex gap-2">
+          <label class="p-2 rounded hover:bg-base-200 transition-all cursor-pointer flex gap-2">
             <span class="text-sm">Essential</span> 
             <input
               type="checkbox"
               checked={filterState.levels.essential}
               onChange$={() => (filterState.levels.essential = !filterState.levels.essential)}
-              class="checkbox checkbox-sm checked:checkbox-success"
+              class="checkbox checkbox-sm checkbox-primary"
             />
           </label>
-          <label class="p-2 rounded hover:bg-front transition-all cursor-pointer flex gap-2">
+          <label class="p-2 rounded hover:bg-base-200 transition-all cursor-pointer flex gap-2">
             <span class="text-sm">Optional</span> 
             <input
               type="checkbox"
               checked={filterState.levels.optional}
               onChange$={() => (filterState.levels.optional = !filterState.levels.optional)}
-              class="checkbox checkbox-sm checked:checkbox-warning"
+              class="checkbox checkbox-sm checkbox-primary"
             />
           </label>
           <label
-            class="p-2 rounded hover:bg-front transition-all cursor-pointer flex gap-2">
+            class="p-2 rounded hover:bg-base-200 transition-all cursor-pointer flex gap-2">
             <span class="text-sm">Advanced</span> 
             <input
               type="checkbox"
               checked={filterState.levels.advanced}
-              class="checkbox checkbox-sm checked:checkbox-error"
+              class="checkbox checkbox-sm checkbox-primary"
               onChange$={() => (filterState.levels.advanced = !filterState.levels.advanced)}
             />
           </label>
@@ -256,21 +246,19 @@ export default component$((props: { section: Section }) => {
       </thead>
       <tbody>
         {filteredChecklist.sort(sortChecklist).map((item, index) => {
-          const badgeColor = getBadgeClass(item.priority);
           const itemId = generateId(item.point);
           const isItemCompleted = isChecked(itemId);
           const isItemIgnored = isIgnored(itemId);
           return (
             <tr key={index} class={[
-              'rounded-sm transition-all',
-              isItemCompleted ? `bg-${badgeColor} bg-opacity-10` : '',
-              isItemIgnored? 'bg-neutral bg-opacity-15' : '',
-              !isItemIgnored && !isItemCompleted ? `hover:bg-opacity-5 hover:bg-${badgeColor}` : '',
+              'hover:bg-base-200/60 transition-colors',
+              isItemCompleted ? styles.rowDone : '',
+              isItemIgnored ? styles.rowIgnored : '',
               ]}>
               <td class="text-center">
                 <input
                   type="checkbox"
-                  class={`checkbox checked:checkbox-${badgeColor} hover:checkbox-${badgeColor}`}
+                  class="checkbox checkbox-sm checkbox-primary rounded"
                   id={`done-${itemId}`}
                   checked={isChecked(itemId)}
                   disabled={isIgnored(itemId)}
@@ -280,11 +268,11 @@ export default component$((props: { section: Section }) => {
                     setCompleted(data);
                   }}
                 />
-                <label for={`ignore-${itemId}`} class="text-small block opacity-50 mt-2">Ignore</label>
+                <label for={`ignore-${itemId}`} class="text-xs block text-base-content/60 mt-3 mb-1">Ignore</label>
                 <input
                   type="checkbox"
                   id={`ignore-${itemId}`}
-                  class={`toggle toggle-xs toggle-${badgeColor}`}
+                  class="toggle toggle-xs"
                   checked={isIgnored(itemId)}
                   onClick$={() => {
                     const ignoredData = ignored.value;
@@ -300,14 +288,14 @@ export default component$((props: { section: Section }) => {
               <td>
                 <label
                   for={`done-${itemId}`}
-                  class={`text-base font-bold ${isIgnored(itemId) ? 'line-through' : 'cursor-pointer'}`}>
+                  class={`text-[0.95rem] font-medium leading-snug ${isIgnored(itemId) ? 'line-through' : 'cursor-pointer'}`}>
                   {item.point}
                 </label>
               </td>
               <td>
-                <div class={`badge gap-2 badge-${badgeColor}`}>
-                  {item.priority}
-                </div>
+                <span class={[styles.level, styles[item.priority.toLowerCase()]]}>
+                  {item.priority.charAt(0).toUpperCase() + item.priority.slice(1).toLowerCase()}
+                </span>
               </td>
               <td class={styles.checklistItemDescription} dangerouslySetInnerHTML={parseMarkdown(item.details)}></td>
             </tr>

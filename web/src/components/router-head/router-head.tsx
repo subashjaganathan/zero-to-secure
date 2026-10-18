@@ -11,12 +11,9 @@ export const RouterHead = component$(() => {
     <>
       {/* Self-hosted fonts. Declared here rather than in global.css so the
           URLs can be resolved against the app's base path. */}
-      <link rel="preload" as="font" type="font/woff2" crossOrigin="anonymous" href={withBase("/fonts/poppins-400.woff2")} />
-      <link rel="preload" as="font" type="font/woff2" crossOrigin="anonymous" href={withBase("/fonts/poppins-700.woff2")} />
+      <link rel="preload" as="font" type="font/woff2" crossOrigin="anonymous" href={withBase("/fonts/inter-latin-var.woff2")} />
       <style dangerouslySetInnerHTML={`
-        @font-face { font-family: 'Poppins'; font-style: normal; font-weight: 400; font-display: swap; src: url('${withBase("/fonts/poppins-400.woff2")}') format('woff2'); }
-        @font-face { font-family: 'Poppins'; font-style: normal; font-weight: 500; font-display: swap; src: url('${withBase("/fonts/poppins-500.woff2")}') format('woff2'); }
-        @font-face { font-family: 'Poppins'; font-style: normal; font-weight: 700; font-display: swap; src: url('${withBase("/fonts/poppins-700.woff2")}') format('woff2'); }
+        @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('${withBase("/fonts/inter-latin-var.woff2")}') format('woff2'); }
       `} />
 
       {/* Basics */}
@@ -30,7 +27,7 @@ export const RouterHead = component$(() => {
       <link rel="icon" type="image/svg+xml" href={withBase("/logo.svg")} />
       <link rel="icon" type="image/png" href={withBase("/favicon.png")} />
       <link rel="apple-touch-icon" href={withBase("/favicon.png")} />
-      <meta name="theme-color" content="#8b5cf6" />
+      <meta name="theme-color" content="#0f62fe" />
       <link rel="manifest" href={withBase("/manifest.json")} />
 
       {/* Open Graph / Facebook */}
