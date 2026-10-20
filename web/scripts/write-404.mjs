@@ -20,32 +20,27 @@ const html = `<!DOCTYPE html>
   <title>Page not found · Zero to Secure</title>
   <link rel="icon" type="image/png" href="${BASE}favicon.png">
   <style>
-    :root { color-scheme: dark light; }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('${BASE}fonts/inter-latin-var.woff2') format('woff2'); }
+    * { box-sizing: border-box; }
     body {
-      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      background: #0f172a; color: #e2e8f0; text-align: center; padding: 2rem;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px;
+      background: #f6f7f9; color: #161b26; -webkit-font-smoothing: antialiased;
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     }
-    .code { font-size: 4rem; font-weight: 800; margin: 0;
-      background: linear-gradient(90deg, #8b5cf6, #ec4899, #22d3ee);
-      -webkit-background-clip: text; background-clip: text; color: transparent; }
-    h1 { font-size: 1.5rem; margin: 0.5rem 0 0.25rem; }
-    p { color: #94a3b8; margin: 0 0 1.75rem; }
-    a { display: inline-block; padding: 0.7rem 1.4rem; border-radius: 0.5rem;
-        background: #8b5cf6; color: #fff; font-weight: 600; text-decoration: none; }
-    a:hover { background: #7c3aed; }
-    @media (prefers-color-scheme: light) {
-      body { background: #f8fafc; color: #0f172a; }
-      p { color: #475569; }
-    }
+    main { width: min(520px, 100%); background: #fff; border: 1px solid #e3e6eb; border-radius: 16px; padding: 40px; }
+    .code { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #0f62fe; }
+    h1 { margin: 8px 0 0; font-size: 32px; letter-spacing: -.025em; }
+    p { margin: 12px 0 0; line-height: 1.6; color: #5d6779; }
+    a { display: inline-block; margin-top: 28px; padding: 11px 18px; border-radius: 8px; background: #0f62fe; color: #fff; font-weight: 600; text-decoration: none; }
+    a:hover { background: #0043ce; }
   </style>
 </head>
 <body>
   <main>
-    <p class="code">404</p>
+    <p class="code">Error 404</p>
     <h1>Page not found</h1>
     <p>That checklist doesn't exist. It may have been renamed or moved.</p>
-    <a href="${BASE}">Back to the checklists</a>
+    <a href="${BASE}">Back to Zero to Secure</a>
   </main>
 </body>
 </html>
