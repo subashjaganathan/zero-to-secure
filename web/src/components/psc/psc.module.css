@@ -131,6 +131,7 @@
 }
 
 .progressPanel {
+  animation: zts-rise 0.7s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 2.5rem;
@@ -178,12 +179,34 @@
   border-radius: 0.75rem;
   border: 1px solid hsl(var(--b3));
   background: hsl(var(--b1));
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
   border-color: hsl(var(--bc) / 0.3);
   background: hsl(var(--b2));
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px -18px hsl(var(--bc) / 0.45);
+}
+
+.card:hover .iconChip {
+  color: hsl(var(--p));
+  border-color: hsl(var(--p) / 0.35);
+  background: hsl(var(--p) / 0.08);
+}
+
+/* Cards fade up as they scroll into view where the browser supports
+   scroll-driven animations; elsewhere they stagger in once on load. */
+.card {
+  animation: zts-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms + 0.35s);
+}
+@supports (animation-timeline: view()) {
+  .card {
+    animation-delay: 0s;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
 }
 
 .cardTop {
@@ -194,6 +217,7 @@
 }
 
 .iconChip {
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
   display: grid;
   place-items: center;
   width: 2.25rem;
@@ -236,7 +260,9 @@
   display: block;
   height: 100%;
   border-radius: 9999px;
-  transition: width 0.4s ease;
+  transform-origin: left;
+  animation: zts-grow 0.9s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -244,4 +270,15 @@
   .trackFill {
     transition: none;
   }
+}
+
+/* Keyframes live in each CSS module: module files rename animation names, so a
+   global @keyframes would not match. */
+@keyframes zts-rise {
+  from { opacity: 0; translate: 0 14px; }
+  to { opacity: 1; translate: none; }
+}
+@keyframes zts-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }

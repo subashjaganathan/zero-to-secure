@@ -50,7 +50,7 @@ export default component$(() => {
           const percent = completions.value?.[index] || 0;
           const doneCount = done.value?.[index] || 0;
           return (
-          <a key={section.slug} href={withBase(`/checklist/${section.slug}`)} class={styles.card}>
+          <a key={section.slug} href={withBase(`/checklist/${section.slug}`)} class={styles.card} style={`--i: ${index};`}>
             <div class={styles.cardTop}>
               <span class={styles.iconChip}>
                 <Icon icon={section.icon || 'star'} width={18} height={18} />

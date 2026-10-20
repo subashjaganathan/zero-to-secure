@@ -5,8 +5,32 @@
  */
 
 .hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   border-bottom: 1px solid hsl(var(--b3));
+  background: linear-gradient(180deg, hsl(var(--b2)) 0%, hsl(var(--b1)) 100%);
 }
+
+/* A faint dot grid on the right that fades out towards the copy */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(hsl(var(--bc) / 0.16) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(60% 80% at 85% 40%, #000 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(60% 80% at 85% 40%, #000 0%, transparent 70%);
+}
+
+.inner > * {
+  animation: zts-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.inner > :nth-child(2) { animation-delay: 0.06s; }
+.inner > :nth-child(3) { animation-delay: 0.12s; }
+.inner > :nth-child(4) { animation-delay: 0.18s; }
+.inner > :nth-child(5) { animation-delay: 0.24s; }
 
 .inner {
   max-width: 72rem;
@@ -93,4 +117,15 @@
 @media (max-width: 640px) {
   .inner { padding: 3rem 1rem 2rem; }
   .stat { padding-right: 1.25rem; margin-right: 1.25rem; }
+}
+
+/* Keyframes live in each CSS module: module files rename animation names, so a
+   global @keyframes would not match. */
+@keyframes zts-rise {
+  from { opacity: 0; translate: 0 14px; }
+  to { opacity: 1; translate: none; }
+}
+@keyframes zts-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }

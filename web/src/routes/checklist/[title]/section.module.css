@@ -14,6 +14,12 @@
   color: hsl(var(--p));
 }
 
+.crumbs, .masthead, .intro {
+  animation: zts-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.masthead { animation-delay: 0.06s; }
+.intro { animation-delay: 0.12s; }
+
 .masthead {
   display: flex;
   align-items: center;
@@ -63,4 +69,15 @@
 
 @media (max-width: 640px) {
   .page { padding: 1.75rem 1rem 0; }
+}
+
+/* Keyframes live in each CSS module: module files rename animation names, so a
+   global @keyframes would not match. */
+@keyframes zts-rise {
+  from { opacity: 0; translate: 0 14px; }
+  to { opacity: 1; translate: none; }
+}
+@keyframes zts-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }

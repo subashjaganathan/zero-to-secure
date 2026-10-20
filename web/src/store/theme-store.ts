@@ -4,11 +4,8 @@ import { useLocalStorage } from '~/hooks/useLocalStorage';
 
 const STORAGE_KEY = 'PSC_THEME';
 
-/** New visitors get whichever theme their OS asks for. */
-const getDefaultTheme = (): string => {
-  if (typeof window === 'undefined') return 'dark';
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-};
+/** New visitors get the light theme; dark stays one click away in the nav. */
+const getDefaultTheme = (): string => 'light';
 
 const applyTheme = (theme: string) => {
   document.documentElement.setAttribute('data-theme', theme);
